@@ -116,11 +116,15 @@ const months = [
 ];
 
 function createTimeElement(myDate){
-  const year = myDate.getFullYear();
-  const monthIndex = myDate.getMonth();
-  const monthNumber = monthIndex + 1; // Add one because monthIndex is 0-based
-  const day = myDate.getDate();
-  return `<time datetime="${year}-${monthNumber}-${day}">${months[monthIndex]}, ${day}, ${year}</time>`
+  const options = {
+    timezone: "UTC", // not sure if I need this, but it's in the MDN docs
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  const formattedDate = myDate.toLocaleString('en-US', options)
+  const isoDate = myDate.toISOString().split('T')[0];
+  return `<time datetime="${isoDate}">${formattedDate}</time>`
 }
 
 
